@@ -19,17 +19,17 @@
              	Group Credit Life
             </div>
             <div class="card-body" style="max-height: 450px; overflow: auto">
-    <form id="GroupCreditLifeFOrm"  action="javascript:void(0);" name="CheckIn" method="post">
+    <form id="GroupCreditLifeFOrm"  onsubmit="submitform(); return false"action="https://prod-116.westeurope.logic.azure.com:443/workflows/2a39ba652fab4378b0c8c169d5848af1/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=VterzPzHQs9bJgu09i9-nbv5xeeWG5JhUlza0B_gXFk" name="CheckIn" method="post">
       <div class="form-group row">
-        <label for="nameoffirm " class="col-4 col-form-label">Name of Firm</label> 
+        <label for="nameoffirm" class="col-4 col-form-label">Name of Firm</label> 
         <div class="col-8">
-          <input id="nameoffirm " name="nameoffirm " placeholder="Name of Firm " type="text" class="form-control">
+          <input id="nameoffirm" name="nameoffirm" placeholder="Name of Firm" type="text" class="form-control">
         </div>
       </div>
       <div class="form-group row">
-        <label for="RegistrationNumber " class="col-4 col-form-label">Registration Number</label> 
+        <label for="RegistrationNumber" class="col-4 col-form-label">Registration Number</label> 
         <div class="col-8">
-          <input id="RegistrationNumber " name="RegistrationNumber " placeholder="Registration Number " type="text" class="form-control">
+          <input id="RegistrationNumber" name="RegistrationNumber" placeholder="Registration Number" type="text" class="form-control">
         </div>
       </div>
       <div class="form-group row">
@@ -111,6 +111,8 @@
     </div>
   </body>
    <!--FormScript-->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
    <script>
     function submit(){
       console.log("i win")
@@ -120,16 +122,33 @@
     var form = document.getElementById("GroupCreditLifeFOrm")
     var formData = JSON.stringify($("#GroupCreditLifeFOrm").serializeArray());
     $.ajax({
-      type: "POST",
-      url: "https://make.powerautomate.com/environments/f946f50b-d77f-e468-aa35-998b939a2846/flows/f47c5308-b2a2-4a8b-a2ed-687ae6b44484",
+      type:"POST",
+      url:"https://prod-116.westeurope.logic.azure.com:443/workflows/2a39ba652fab4378b0c8c169d5848af1/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=VterzPzHQs9bJgu09i9-nbv5xeeWG5JhUlza0B_gXFk",
       data: formData,
       success: function(formdone){ alert(formdone);},
-      dataType: "json",
-      contentType : "application/json"
+      dataType:"json",
+      contentType :"application/json"
       
     });
     console.log(formData)
   }
+
+  $(document).on('click', '#GroupCreditLifeFOrmd', function () {
+    event.preventDefault(); // Prevent the form from submitting via the browser
+    var form = $(this);
+    console.log(form.serialize());
+        $.ajax({
+          type: form.attr('method'),
+          url: form.attr('action'),
+          data: form.serialize(),
+            beforeSend: function () {
+                $("#GroupCreditLifeFOrm").attr("disabled", !0);
+            },
+            success: function (a) {
+                alert(a);
+            }
+        });
+    });
     
     </script>
 </html>
