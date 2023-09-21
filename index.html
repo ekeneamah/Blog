@@ -24,6 +24,7 @@
         <label for="nameoffirm" class="col-4 col-form-label">Name of Firm</label> 
         <div class="col-8">
           <input id="nameoffirm" name="nameoffirm" placeholder="Name of Firm" type="text" class="form-control">
+          <input id="formsource" name="formsource" value="groupcreditlife" placeholder="Source" type="hidden" class="form-control"/>
         </div>
       </div>
       <div class="form-group row">
@@ -83,19 +84,19 @@
       <div class="form-group row">
         <label for="maxAgeEntry" class="col-4 col-form-label">Max. Age Entry (Years)</label> 
         <div class="col-8">
-          <input id="maxAgeEntry" name="maxAgeEntry" placeholder="Max. Age Entry (Years)" type="text" class="form-control">
+          <input id="maxAgeEntry" name="maxAgeEntry" placeholder="Max. Age Entry (Years)" type="number" class="form-control">
         </div>
       </div>
       <div class="form-group row">
         <label for="numberofLivestocover" class="col-4 col-form-label">Number of Lives to cover</label> 
         <div class="col-8">
-          <input id="numberofLivestocover" name="numberofLivestocover" placeholder="Number of Lives to cover" type="text" class="form-control">
+          <input id="numberofLivestocover" name="numberofLivestocover" placeholder="Number of Lives to cover" type="number" class="form-control">
         </div>
       </div>
       <div class="form-group row">
         <label for="ProposedperiodofCover" class="col-4 col-form-label">Proposed Period of Cover (Years)</label> 
         <div class="col-8">
-          <input id="ProposedperiodofCover" name="ProposedperiodofCover" placeholder="Proposed Period of Cover (Years)" type="text" class="form-control">
+          <input id="ProposedperiodofCover" name="ProposedperiodofCover" placeholder="Proposed Period of Cover (Years)" type="number" class="form-control">
         </div>
       </div> 
       <div class="form-group row">
@@ -120,7 +121,24 @@
       function submitform() {
       console.log("one")
     var form = document.getElementById("GroupCreditLifeFOrm")
-    var formData = JSON.stringify($("#GroupCreditLifeFOrm").serializeArray());
+   // var formData = JSON.stringify($("#GroupCreditLifeFOrm").serializeArray());
+    var formData = {
+      nameoffirm: $("#nameoffirm").val(),
+      emformsourceail: $("#formsource").val(),
+      superheroAlias: $("#superheroAlias").val(),
+      RegistrationNumber:$("#RegistrationNumber").val(),
+      TIN:$("#TIN").val(),
+      Email:$("#Email").val(),
+      Phone:$("#Phone").val(),
+      natureofbusiness:$("#natureofbusiness").val(),
+      State:$("#State").val(),
+      maxLoanAmount:$("#maxLoanAmount").val(),
+      minAge:$("#minAge").val(),
+      maxAgeEntry:$("#maxAgeEntry").val(),
+      numberofLivestocover:$("#numberofLivestocover").val(),
+      ProposedperiodofCover:$("#ProposedperiodofCover").val(),
+
+    };
     $.ajax({
       type:"POST",
       url:"https://prod-116.westeurope.logic.azure.com:443/workflows/2a39ba652fab4378b0c8c169d5848af1/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=VterzPzHQs9bJgu09i9-nbv5xeeWG5JhUlza0B_gXFk",
