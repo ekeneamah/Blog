@@ -19,7 +19,7 @@
              	Group Credit Life
             </div>
             <div class="card-body" style="max-height: 450px; overflow: auto">
-    <form id="GroupCreditLifeFOrm"  onsubmit="submitform(); return false"action="https://prod-116.westeurope.logic.azure.com:443/workflows/2a39ba652fab4378b0c8c169d5848af1/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=VterzPzHQs9bJgu09i9-nbv5xeeWG5JhUlza0B_gXFk" name="CheckIn" method="post">
+    <form id="GroupCreditLifeFOrm"  onsubmit="submitform(); return false"action="" name="CheckIn" method="post">
       <div class="form-group row">
         <label for="nameoffirm" class="col-4 col-form-label">Name of Firm</label> 
         <div class="col-8">
@@ -78,7 +78,7 @@
       <div class="form-group row">
         <label for="minAge" class="col-4 col-form-label">Min. Age (Years)</label> 
         <div class="col-8">
-          <input id="minAge" name="minAge" placeholder="Min. Age (Years)" type="text" class="form-control">
+          <input id="minAge" name="minAge" placeholder="Min. Age (Years)" type="number" class="form-control">
         </div>
       </div>
       <div class="form-group row">
@@ -119,10 +119,11 @@
       console.log("i win")
     }
       function submitform() {
+        event.preventDefault();
       console.log("one")
     var form = document.getElementById("GroupCreditLifeFOrm")
-   // var formData = JSON.stringify($("#GroupCreditLifeFOrm").serializeArray());
-    var formData = {
+   // var formData = document.getElementById("GroupCreditLifeFOrm").serializeObject();
+     var formData = {
       nameoffirm: $("#nameoffirm").val(),
       emformsourceail: $("#formsource").val(),
       superheroAlias: $("#superheroAlias").val(),
@@ -137,11 +138,11 @@
       maxAgeEntry:$("#maxAgeEntry").val(),
       numberofLivestocover:$("#numberofLivestocover").val(),
       ProposedperiodofCover:$("#ProposedperiodofCover").val()
-    };
+    }; 
     $.ajax({
       type:"POST",
       url:"https://prod-116.westeurope.logic.azure.com:443/workflows/2a39ba652fab4378b0c8c169d5848af1/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=VterzPzHQs9bJgu09i9-nbv5xeeWG5JhUlza0B_gXFk",
-      data: formData,
+      data:  JSON.stringify(formData),
       success: function(formdone){ alert(formdone);},
       dataType:"json",
       contentType :"application/json"
